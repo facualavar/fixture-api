@@ -15,4 +15,9 @@ class Group extends Model
     {
         return $this->hasMany(Team::class);
     }
+
+    public function games()
+    {
+        return $this->hasMany(Game::class);
+    }
 }
