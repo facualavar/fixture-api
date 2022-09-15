@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Group;
 use App\Models\Result;
+use App\Models\User;
 
 class GroupService
 {
@@ -14,7 +15,7 @@ class GroupService
         $this->group = $group;
     }
 
-    public function saveResults(array $results): bool
+    public function saveResults(User $user, array $results): bool
     {
         $resultNormalized = $this->normalizeresults($results);
 
@@ -41,11 +42,12 @@ class GroupService
             }
 
             // Busco el resultado, si no existe lo genero
-            $result = Result::where('game_id', $game->id)->first();
+            $result = Result::where('game_id', $game->id)->where('user_id', $user->id)->first();
 
             if (!$result) {
                 $result = new Result();
                 $result->game_id = $game->id;
+                $result->user_id = $user->id;
             }
 
             // Seteo un ganador, si lo hubiera
