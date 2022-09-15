@@ -27,6 +27,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'user'         => $user,
             'access_token' => $token,
             'token_type'   => 'Bearer'
         ]);
@@ -40,9 +41,6 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Login failed'
             ], 401);
-
-            $request->session()->regenerate();
-            return response("You are logged in!", 200);
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
@@ -50,6 +48,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'user'         => $user,
             'access_token' => $token,
             'token_type'   => 'Bearer'
         ]);
