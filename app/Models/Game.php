@@ -33,4 +33,9 @@ class Game extends Model
     {
         return $this->belongsTo(Matchday::class, 'matchday_id');
     }
+
+    public function results()
+    {
+        return $this->hasMany(Result::class, 'game_id');
+    }
 }
