@@ -115,6 +115,7 @@ class GroupController extends Controller
             $result = $this->resultRepository->findByUserAndGame($user, $game);
 
             $response[] = [
+                'game_id'     => $game->getId(),
                 'stage'       => $game->getStage()->getName(),
                 'matchday'    => $game->getMatchday()->getName(),
                 'name_team_1' => $game->getTeam1()->getName(),

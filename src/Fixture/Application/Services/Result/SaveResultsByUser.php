@@ -27,15 +27,14 @@ class SaveResultsByUser
     public function __invoke(User $user, array $results): bool
     {
 
-        foreach ($results as $result) {
-            $game_id    = $result["game_id"];
+        foreach ($results as $gameId => $result) {
             $goalsTeam1 = $result['goals_team_1'];
             $goalsTeam2 = $result['goals_team_2'];
 
-            $game = $this->gameRepository->find($game_id);
+            $game = $this->gameRepository->find($gameId);
 
             if (!$game) {
-                throw new NotFoundHttpException("No se encontró el juego ". $result["game_id"]);
+                throw new NotFoundHttpException("No se encontró el juego ". $gameId);
             }
 
             $saveResult = new SaveResultByUserAndGame($this->resultRepository);

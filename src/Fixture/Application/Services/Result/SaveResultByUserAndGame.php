@@ -24,8 +24,7 @@ class SaveResultByUserAndGame
         $result = $this->resultRepository->findByUserAndGame($user, $game);
 
         if (!$result) {
-            throw new HttpException(404, "Resultado no encontrado");
-            // $result = new Result(null, $user, $game, null, null);
+            $result = new Result(null, $user, $game, null, null);
         }
 
         $result->setGoals($goalsTeam1, $goalsTeam2);
