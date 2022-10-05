@@ -5496,6 +5496,7 @@
             "autoload": {
                 "psr-4": {
                     "App\\": "app/",
+                    "Fixture\\": "src/Fixture/",
                     "Database\\Seeders\\": "database/seeders/",
                     "Database\\Factories\\": "database/factories/"
                 }
