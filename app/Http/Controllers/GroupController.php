@@ -88,20 +88,20 @@ class GroupController extends Controller
 
         $teamsData = [];
         foreach ($teams as $team) {
-            $groupStatistic = $this->statisticRepository->findOrCreateStatisticByUserAndTeam($user, $team);
+            $teamStats = $this->statisticRepository->findOrCreateStatisticByUserAndTeam($user, $team);
 
             $teamsData[] = [
                 'id'       => $team->getId(),
                 'name'     => $team->getName(),
                 'flag'     => $team->getFlagImg(),
-                'partidos_jugados'   => $groupStatistic->getPartidosJugados(),
-                'partidos_ganados'   => $groupStatistic->getPartidosGanados(),
-                'partidos_empatados' => $groupStatistic->getPartidosEmpatados(),
-                'partidos_perdidos'  => $groupStatistic->getPartidosPerdidos(),
-                'goles_a_favor'       => $groupStatistic->getGolesAFavor(),
-                'goles_en_contra'     => $groupStatistic->getGolesEnContra(),
-                'diferencia_de_goles' => $groupStatistic->getDiferenciaDeGoles(),
-                'puntos'              => $groupStatistic->getPuntos(),
+                'partidos_jugados'   => $teamStats->getPartidosJugados(),
+                'partidos_ganados'   => $teamStats->getPartidosGanados(),
+                'partidos_empatados' => $teamStats->getPartidosEmpatados(),
+                'partidos_perdidos'  => $teamStats->getPartidosPerdidos(),
+                'goles_a_favor'       => $teamStats->getGolesAFavor(),
+                'goles_en_contra'     => $teamStats->getGolesEnContra(),
+                'diferencia_de_goles' => $teamStats->getDiferenciaDeGoles(),
+                'puntos'              => $teamStats->getPuntos(),
             ];
         }
 

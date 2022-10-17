@@ -2,14 +2,25 @@
 
 namespace Fixture\Infrastructure\Persistence;
 
+use Fixture\Domain\Group\Group;
+use Fixture\Domain\Statistic\GroupStats;
 use Fixture\Domain\Statistic\StatisticRepository;
 use Fixture\Domain\Statistic\TeamStats;
 use Fixture\Domain\Team\Team;
+use Fixture\Domain\Team\TeamRepository;
 use Fixture\Domain\User\User;
+use Fixture\Infrastructure\Persistence\Eloquent\GroupStatsEloquentModel;
 use Fixture\Infrastructure\Persistence\Eloquent\TeamStatsEloquentModel;
 
 final class EloquentStatisticRepository implements StatisticRepository
 {
+    private $teamRepository;
+
+    public function __construct(TeamRepository $teamRepository)
+    {
+        $this->teamRepository = $teamRepository;
+    }
+
     public function save(TeamStats $teamStats): void
     {
         $model = TeamStatsEloquentModel::find($teamStats->getId());
@@ -65,5 +76,26 @@ final class EloquentStatisticRepository implements StatisticRepository
             $model->diferencia_de_goles,
             $model->puntos
         );
+    }
+
+    public function findOrCreateStatisticByUserAndGroup(User $user, Group $group): GroupStats
+    {
+        $model = GroupStatsEloquentModel::where("group_id", $group->getId())
+            ->where("user_id", $user->getId())
+            ->first();
+
+        if (!$model) {
+            $model = new TeamStatsEloquentModel();
+            $model->user_id = $user->getId();
+            $model->group_id = $group->getId();
+            $model->first_place_id = null;
+            $model->second_place_id = null;
+            $model->save();
+        }
+
+        $firstPlace  = $this->teamRepository->find($model->first_place_id);
+        $secondPlace = $this->teamRepository->find($model->second_place_id);
+
+        return new GroupStats($model->id, $user, $group, $firstPlace, $secondPlace);
     }
 }
