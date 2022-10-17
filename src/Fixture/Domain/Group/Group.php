@@ -12,12 +12,12 @@ class Group
     private $teams;
     private $games;
 
-    public function __construct(int $id, string $name, array $teams = [])
+    public function __construct(int $id, string $name, array $teams = [], array $games = [])
     {
         $this->id    = $id;
         $this->name  = $name;
         $this->teams = $teams;
-        $this->games = [];
+        $this->games = $games;
     }
 
     public function getId(): int

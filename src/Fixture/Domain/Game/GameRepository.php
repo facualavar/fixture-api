@@ -10,7 +10,7 @@ interface GameRepository
     public function find(int $id): ?Game;
 
     /**
-     * @return array<Group>
+     * @return array<Game>
      */
     public function findByGroup(Group $group): array;
 }
