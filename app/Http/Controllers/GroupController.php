@@ -10,6 +10,7 @@ use Fixture\Infrastructure\Persistence\EloquentGroupRepository;
 use Fixture\Infrastructure\Persistence\EloquentMatchdayRepository;
 use Fixture\Infrastructure\Persistence\EloquentResultRepository;
 use Fixture\Infrastructure\Persistence\EloquentStageRepository;
+use Fixture\Infrastructure\Persistence\EloquentStatisticRepository;
 use Fixture\Infrastructure\Persistence\EloquentTeamRepository;
 use Fixture\Infrastructure\Persistence\EloquentUserRepository;
 use Illuminate\Http\Request;
@@ -24,16 +25,18 @@ class GroupController extends Controller
     private $resultRepository;
     private $gameRepository;
     private $userRepository;
+    private $statisticRepository;
 
     public function __construct()
     {
-        $this->stageRepository    = new EloquentStageRepository();
-        $this->matchdayRepository = new EloquentMatchdayRepository();
-        $this->teamRepository     = new EloquentTeamRepository();
-        $this->userRepository     = new EloquentUserRepository();
-        $this->groupRepository    = new EloquentGroupRepository($this->teamRepository);
-        $this->gameRepository     = new EloquentGameRepository($this->teamRepository, $this->groupRepository, $this->stageRepository, $this->matchdayRepository);
-        $this->resultRepository   = new EloquentResultRepository($this->gameRepository, $this->userRepository);
+        $this->statisticRepository = new EloquentStatisticRepository();
+        $this->stageRepository     = new EloquentStageRepository();
+        $this->matchdayRepository  = new EloquentMatchdayRepository();
+        $this->teamRepository      = new EloquentTeamRepository();
+        $this->userRepository      = new EloquentUserRepository();
+        $this->groupRepository     = new EloquentGroupRepository($this->teamRepository);
+        $this->gameRepository      = new EloquentGameRepository($this->teamRepository, $this->groupRepository, $this->stageRepository, $this->matchdayRepository);
+        $this->resultRepository    = new EloquentResultRepository($this->gameRepository, $this->userRepository);
     }
 
     private function serializeTeam(Team $team): array
@@ -71,20 +74,34 @@ class GroupController extends Controller
         return response()->json($response, 200);
     }
 
-    public function show(int $id)
+    public function show(int $id, Request $request)
     {
+        $authUser = $request->user();
+
+        $user  = $this->userRepository->find($authUser->id);
         $group = $this->groupRepository->find($id);
 
         if (!$group) throw new NotFoundHttpException("No se encontró el grupo");
+        if (!$user) throw new NotFoundHttpException("No se encontró el usuario");
 
         $teams = $this->teamRepository->findByGroup($group);
 
         $teamsData = [];
         foreach ($teams as $team) {
+            $groupStatistic = $this->statisticRepository->findOrCreateStatisticByUserAndTeam($user, $team);
+
             $teamsData[] = [
                 'id'       => $team->getId(),
                 'name'     => $team->getName(),
-                'flag_img' => $team->getFlagImg(),
+                'flag'     => $team->getFlagImg(),
+                'partidos_jugados'   => $groupStatistic->getPartidosJugados(),
+                'partidos_ganados'   => $groupStatistic->getPartidosGanados(),
+                'partidos_empatados' => $groupStatistic->getPartidosEmpatados(),
+                'partidos_perdidos'  => $groupStatistic->getPartidosPerdidos(),
+                'goles_a_favor'       => $groupStatistic->getGolesAFavor(),
+                'goles_en_contra'     => $groupStatistic->getGolesEnContra(),
+                'diferencia_de_goles' => $groupStatistic->getDiferenciaDeGoles(),
+                'puntos'              => $groupStatistic->getPuntos(),
             ];
         }
 
@@ -141,8 +158,8 @@ class GroupController extends Controller
         if (!$group) throw new NotFoundHttpException("No se encontró el grupo");
         if (!$user) throw new NotFoundHttpException("No se encontró el usuario");
 
-        $saveResults = new SaveResultsByUser($this->gameRepository, $this->resultRepository);
-        $response    = $saveResults->__invoke($user, $results);
+        $saveResults = new SaveResultsByUser($this->gameRepository, $this->resultRepository, $this->statisticRepository);
+        $response    = $saveResults->__invoke($user, $group, $results);
 
         return response()->json($response, 200);
     }

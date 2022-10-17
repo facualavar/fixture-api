@@ -44,6 +44,9 @@ class SaveResultsByUser
             $saveResult->__invoke($user, $game, $goalsTeam1, $goalsTeam2);
         }
 
+        $updateStats = new UpdateStatsAfterGame($this->statisticRepository, $this->resultRepository, $this->gameRepository);
+        $updateStats->__invoke($user, $group);
+
         return true;
     }
 }
