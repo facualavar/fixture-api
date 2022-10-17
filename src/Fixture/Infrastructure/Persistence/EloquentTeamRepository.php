@@ -18,7 +18,7 @@ final class EloquentTeamRepository implements TeamRepository
         $model->save();
     }
 
-    public function find(int $id): ?Team
+    public function find(?int $id): ?Team
     {
         $model = TeamEloquentModel::find($id);
 

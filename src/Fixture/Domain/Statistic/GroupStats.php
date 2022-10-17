@@ -22,4 +22,14 @@ class GroupStats
         $this->firstPlace  = $firstPlace;
         $this->secondPlace = $secondPlace;
     }
+
+    public function getFirstPlace(): ?Team
+    {
+        return $this->firstPlace;
+    }
+
+    public function getSecondPlace(): ?Team
+    {
+        return $this->secondPlace;
+    }
 }

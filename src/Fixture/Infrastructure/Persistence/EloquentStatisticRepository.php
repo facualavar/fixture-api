@@ -85,7 +85,7 @@ final class EloquentStatisticRepository implements StatisticRepository
             ->first();
 
         if (!$model) {
-            $model = new TeamStatsEloquentModel();
+            $model = new GroupStatsEloquentModel();
             $model->user_id = $user->getId();
             $model->group_id = $group->getId();
             $model->first_place_id = null;

@@ -29,12 +29,12 @@ class GroupController extends Controller
 
     public function __construct()
     {
-        $this->statisticRepository = new EloquentStatisticRepository();
         $this->stageRepository     = new EloquentStageRepository();
         $this->matchdayRepository  = new EloquentMatchdayRepository();
         $this->teamRepository      = new EloquentTeamRepository();
         $this->userRepository      = new EloquentUserRepository();
         $this->groupRepository     = new EloquentGroupRepository($this->teamRepository);
+        $this->statisticRepository = new EloquentStatisticRepository($this->teamRepository);
         $this->gameRepository      = new EloquentGameRepository($this->teamRepository, $this->groupRepository, $this->stageRepository, $this->matchdayRepository);
         $this->resultRepository    = new EloquentResultRepository($this->gameRepository, $this->userRepository);
     }
@@ -84,7 +84,8 @@ class GroupController extends Controller
         if (!$group) throw new NotFoundHttpException("No se encontró el grupo");
         if (!$user) throw new NotFoundHttpException("No se encontró el usuario");
 
-        $teams = $this->teamRepository->findByGroup($group);
+        $teams      = $this->teamRepository->findByGroup($group);
+        $groupStats = $this->statisticRepository->findOrCreateStatisticByUserAndGroup($user, $group);
 
         $teamsData = [];
         foreach ($teams as $team) {
@@ -109,6 +110,8 @@ class GroupController extends Controller
             'id'    => $group->getId(),
             'name'  => $group->getName(),
             'teams' => $teamsData,
+            'first_place' => $groupStats->getFirstPlace() ? $groupStats->getFirstPlace()->getId() : null,
+            'second_place' => $groupStats->getSecondPlace() ? $groupStats->getSecondPlace()->getId() : null,
         ];
 
         return response()->json($response, 200);
