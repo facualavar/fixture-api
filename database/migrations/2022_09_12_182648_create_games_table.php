@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('team_1_id', 10)->nullable();
             $table->string('team_2_id', 10)->nullable();
             $table->unsignedBigInteger('stage_id');
-            $table->unsignedBigInteger('group_id')->nullable();
+            $table->string('group_id', 10)->nullable();
             $table->unsignedBigInteger('matchday_id')->nullable();
             $table->dateTime('date')->nullable();
 
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreign('team_2_id')->references('id')->on('teams');
             $table->foreign('stage_id')->references('id')->on('stages');
             $table->foreign('group_id')->references('id')->on('groups');
-            $table->foreign('matchday_id')->references('id')->on('groups');
+            $table->foreign('matchday_id')->references('id')->on('matchdays');
         });
     }
 
