@@ -33,6 +33,9 @@ final class EloquentGroupRepository implements GroupRepository
         return $group;
     }
 
+    /**
+     * @return Group[]
+     */
     public function all(): array
     {
         $models = GroupEloquentModel::all();

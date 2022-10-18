@@ -8,5 +8,8 @@ interface GroupRepository
 
     public function find(string $id): ?Group;
 
+    /**
+     * @return Group[]
+     */
     public function all(): array;
 }
