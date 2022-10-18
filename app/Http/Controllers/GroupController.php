@@ -130,8 +130,7 @@ class GroupController extends Controller
         $games = $this->gameRepository->findByGroup($group);
 
         $response = [];
-        foreach ($games as $game)
-        {
+        foreach ($games as $game) {
             $result = $this->resultRepository->findByUserAndGame($user, $game);
 
             $response[] = [

@@ -25,11 +25,10 @@ class SaveResultsByUser
     /**
      * @param User $user
      * @param array $resultsData un array que contiene resultados
-     * Un resultado: [game_id => int goals_team_1 => int, goals_team_2 => int]
+     * Un resultado: [game_id => [goals_team_1 => int, goals_team_2 => int]]
      */
     public function __invoke(User $user, Group $group, array $resultsData): bool
     {
-
         foreach ($resultsData as $gameId => $resultData) {
             $goalsTeam1 = $resultData['goals_team_1'];
             $goalsTeam2 = $resultData['goals_team_2'];
