@@ -21,7 +21,7 @@ final class EloquentStatisticRepository implements StatisticRepository
         $this->teamRepository = $teamRepository;
     }
 
-    public function save(TeamStats $teamStats): void
+    public function saveTeamStats(TeamStats $teamStats): void
     {
         $model = TeamStatsEloquentModel::find($teamStats->getId());
 
@@ -76,6 +76,15 @@ final class EloquentStatisticRepository implements StatisticRepository
             $model->diferencia_de_goles,
             $model->puntos
         );
+    }
+
+    public function saveGroupStats(GroupStats $groupStats): void
+    {
+        $model = GroupStatsEloquentModel::find($groupStats->getId());
+
+        $model->first_place_id = $groupStats->getFirstPlace() ? $groupStats->getFirstPlace()->getId() : null;
+        $model->second_place_id = $groupStats->getSecondPlace() ? $groupStats->getSecondPlace()->getId() : null;
+        $model->save();
     }
 
     public function findOrCreateStatisticByUserAndGroup(User $user, Group $group): GroupStats

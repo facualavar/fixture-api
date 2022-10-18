@@ -23,6 +23,11 @@ class GroupStats
         $this->secondPlace = $secondPlace;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getFirstPlace(): ?Team
     {
         return $this->firstPlace;
@@ -31,5 +36,15 @@ class GroupStats
     public function getSecondPlace(): ?Team
     {
         return $this->secondPlace;
+    }
+
+    public function setFirstPlace(?Team $team): void
+    {
+        $this->firstPlace = $team;
+    }
+
+    public function setSecondPlace(?Team $team): void
+    {
+        $this->secondPlace = $team;
     }
 }

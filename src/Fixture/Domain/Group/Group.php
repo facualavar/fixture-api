@@ -30,6 +30,9 @@ class Group
         return $this->name;
     }
 
+    /**
+     * @return Team[]
+     */
     public function getTeams(): array
     {
         return $this->teams;

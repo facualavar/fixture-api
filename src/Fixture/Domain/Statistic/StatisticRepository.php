@@ -8,9 +8,11 @@ use Fixture\Domain\User\User;
 
 interface StatisticRepository
 {
-    public function save(TeamStats $statisticTeam): void;
+    public function saveTeamStats(TeamStats $teamStats): void;
 
     public function findOrCreateStatisticByUserAndTeam(User $user, Team $team): TeamStats;
+
+    public function saveGroupStats(GroupStats $groupStats): void;
 
     public function findOrCreateStatisticByUserAndGroup(User $user, Group $group): GroupStats;
 }
