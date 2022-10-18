@@ -8,7 +8,7 @@ use Fixture\Infrastructure\Persistence\Eloquent\StageEloquentModel;
 
 final class EloquentStageRepository implements StageRepository
 {
-    public function find(int $id): ?Stage
+    public function find(string $id): ?Stage
     {
         $model = StageEloquentModel::find($id);
 

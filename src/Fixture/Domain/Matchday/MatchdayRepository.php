@@ -4,5 +4,5 @@ namespace Fixture\Domain\Matchday;
 
 interface MatchdayRepository
 {
-    public function find(int $id): ?Matchday;
+    public function find(string $id): ?Matchday;
 }

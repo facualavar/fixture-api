@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class StageEloquentModel extends Model
 {
     protected $table = 'stages';
+
+    protected $primaryKey = 'id';
+    protected $keyType    = 'string';
 }

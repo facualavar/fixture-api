@@ -7,13 +7,13 @@ class Stage
     private $id;
     private $name;
 
-    public function __construct(int $id, string $name)
+    public function __construct(string $id, string $name)
     {
         $this->id   = $id;
         $this->name = $name;
     }
 
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }

@@ -14,9 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('stages', function (Blueprint $table) {
-            $table->id();
+            $table->string("id", 10);
             $table->string("short_name", 20);
             $table->string("name", 50);
+
+            $table->primary('id');
         });
     }
 

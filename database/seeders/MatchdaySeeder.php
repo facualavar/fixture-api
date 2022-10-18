@@ -16,17 +16,39 @@ class MatchdaySeeder extends Seeder
     public function run()
     {
         $matchdays = [
-            'Jornada 1',
-            'Jornada 2',
-            'Jornada 3',
-            'Octavos',
-            'Cuartos',
-            'Semis',
-            'Final',
+            [
+                'id'   => 'jornada1',
+                'name' => 'Jornada 1'
+            ],
+            [
+                'id'   => 'jornada2',
+                'name' => 'Jornada 2'
+            ],
+            [
+                'id'   => 'jornada3',
+                'name' => 'Jornada 3'
+            ],
+            [
+                'id'   => 'octavos',
+                'name' => 'Octavos'
+            ],
+            [
+                'id'   => 'cuartos',
+                'name' => 'Cuartos'
+            ],
+            [
+                'id'   => 'semis',
+                'name' => 'Semis'
+            ],
+            [
+                'id'   => 'final',
+                'name' => 'Final'
+            ],
         ];
         foreach ($matchdays as $matchday) {
             DB::table('matchdays')->insert([
-                'name' => $matchday,
+                'id' => $matchday['id'],
+                'name' => $matchday['name'],
             ]);
         }
     }

@@ -29,48 +29,49 @@ class GameSeeder extends Seeder
             $team4 = $teams[3];
 
             // Fecha 1
-            $this->createGame($team1->id, $team2->id, 1, $group->id, 1);
-            $this->createGame($team3->id, $team4->id, 1, $group->id, 1);
+            $this->createGame($team1->id, $team2->id, 'grupos', $group->id, 'jornada1');
+            $this->createGame($team3->id, $team4->id, 'grupos', $group->id, 'jornada1');
 
             // Fecha 2
-            $this->createGame($team1->id, $team3->id, 1, $group->id, 2);
-            $this->createGame($team2->id, $team4->id, 1, $group->id, 2);
+            $this->createGame($team1->id, $team3->id, 'grupos', $group->id, 'jornada2');
+            $this->createGame($team2->id, $team4->id, 'grupos', $group->id, 'jornada2');
 
             // Fecha 3
-            $this->createGame($team1->id, $team4->id, 1, $group->id, 3);
-            $this->createGame($team2->id, $team3->id, 1, $group->id, 3);
+            $this->createGame($team1->id, $team4->id, 'grupos', $group->id, 'jornada3');
+            $this->createGame($team2->id, $team3->id, 'grupos', $group->id, 'jornada3');
         }
 
         // Octavos de final
-        $this->createGame(null, null, 2, null, 4);
-        $this->createGame(null, null, 2, null, 4);
-        $this->createGame(null, null, 2, null, 4);
-        $this->createGame(null, null, 2, null, 4);
-        $this->createGame(null, null, 2, null, 4);
-        $this->createGame(null, null, 2, null, 4);
-        $this->createGame(null, null, 2, null, 4);
-        $this->createGame(null, null, 2, null, 4);
+        $this->createGame(null, null, 'octavos', null, null);
+        $this->createGame(null, null, 'octavos', null, null);
+        $this->createGame(null, null, 'octavos', null, null);
+        $this->createGame(null, null, 'octavos', null, null);
+        $this->createGame(null, null, 'octavos', null, null);
+        $this->createGame(null, null, 'octavos', null, null);
+        $this->createGame(null, null, 'octavos', null, null);
+        $this->createGame(null, null, 'octavos', null, null);
 
         // Cuartos de final
-        $this->createGame(null, null, 3, null, 5);
-        $this->createGame(null, null, 3, null, 5);
-        $this->createGame(null, null, 3, null, 5);
-        $this->createGame(null, null, 3, null, 5);
+        $this->createGame(null, null, 'cuartos', null, null);
+        $this->createGame(null, null, 'cuartos', null, null);
+        $this->createGame(null, null, 'cuartos', null, null);
+        $this->createGame(null, null, 'cuartos', null, null);
 
         // Semifinales
-        $this->createGame(null, null, 4, null, 6);
-        $this->createGame(null, null, 4, null, 6);
+        $this->createGame(null, null, 'final', null, null);
+        $this->createGame(null, null, 'final', null, null);
 
         // Final
-        $this->createGame(null, null, 5, null, 7);
+        $this->createGame(null, null, 'final', null, null);
     }
 
-    private function createGame(?string $team1, ?string $team2, int $stage, ?int $group, ?int $matchday): void
+    private function createGame(?string $team1, ?string $team2, string $stage, ?string $group, ?string $matchday): void
     {
         DB::table('games')->insert([
             'team_1_id' => $team1,
             'team_2_id' => $team2,
             'stage_id'  => $stage,
+            'user_id'   => null,
             'group_id'  => $group,
             'matchday_id' => $matchday,
         ]);

@@ -8,7 +8,7 @@ use Fixture\Infrastructure\Persistence\Eloquent\MatchdayEloquentModel;
 
 final class EloquentMatchdayRepository implements MatchdayRepository
 {
-    public function find(int $id): ?Matchday
+    public function find(string $id): ?Matchday
     {
         $model = MatchdayEloquentModel::find($id);
 
