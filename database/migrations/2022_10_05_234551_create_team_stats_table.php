@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('team_stats', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('team_id');
+            $table->string('team_id', 10);
             $table->integer('partidos_jugados')->default(0);
             $table->integer('partidos_ganados')->default(0);
             $table->integer('partidos_empatados')->default(0);

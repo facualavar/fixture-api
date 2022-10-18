@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->id();
+            $table->string("id", 10);
             $table->string("name", 100);
             $table->string("icon", 255);
             $table->unsignedBigInteger('group_id');
+            $table->integer("order_group");
 
+            $table->primary('id');
             $table->foreign('group_id')->references('id')->on('groups');
         });
     }

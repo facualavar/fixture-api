@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('group_id');
-            $table->unsignedBigInteger('first_place_id')->nullable();
-            $table->unsignedBigInteger('second_place_id')->nullable();
+            $table->string('first_place_id', 10)->nullable();
+            $table->string('second_place_id', 10)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

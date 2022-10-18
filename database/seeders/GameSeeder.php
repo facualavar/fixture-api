@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Group;
-use App\Models\Matchday;
+use Fixture\Infrastructure\Persistence\Eloquent\GroupEloquentModel;
+use Fixture\Infrastructure\Persistence\Eloquent\TeamEloquentModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -18,10 +18,10 @@ class GameSeeder extends Seeder
     public function run()
     {
         // Fase de Grupos
-        $groups = Group::with('teams')->get();
+        $groups = GroupEloquentModel::all();
 
         foreach ($groups as $group) {
-            $teams = $group->teams;
+            $teams = TeamEloquentModel::where('group_id', $group->id)->orderBy('order_group')->get();
 
             $team1 = $teams[0];
             $team2 = $teams[1];
@@ -65,7 +65,7 @@ class GameSeeder extends Seeder
         $this->createGame(null, null, 5, null, 7);
     }
 
-    private function createGame(?int $team1, ?int $team2, int $stage, ?int $group, ?int $matchday): void
+    private function createGame(?string $team1, ?string $team2, int $stage, ?int $group, ?int $matchday): void
     {
         DB::table('games')->insert([
             'team_1_id' => $team1,

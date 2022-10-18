@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('goals_team_1')->nullable();
             $table->integer('goals_team_2')->nullable();
-            $table->unsignedBigInteger('team_winner')->nullable();
+            $table->string('team_winner', 10)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('team_1_id')->nullable();
-            $table->unsignedBigInteger('team_2_id')->nullable();
+            $table->string('team_1_id', 10)->nullable();
+            $table->string('team_2_id', 10)->nullable();
             $table->unsignedBigInteger('stage_id');
             $table->unsignedBigInteger('group_id')->nullable();
             $table->unsignedBigInteger('matchday_id')->nullable();
