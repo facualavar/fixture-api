@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('group_stats', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('group_id');
+            $table->string('group_id', 10);
             $table->string('first_place_id', 10)->nullable();
             $table->string('second_place_id', 10)->nullable();
             $table->timestamps();

@@ -16,14 +16,38 @@ class GroupSeeder extends Seeder
     public function run()
     {
         $groups = [
-            'Grupo A',
-            'Grupo B',
-            'Grupo C',
-            'Grupo D',
-            'Grupo E',
-            'Grupo F',
-            'Grupo G',
-            'Grupo H',
+            [
+                'id'   => 'GRUPO_A',
+                'name' => 'Grupo A',
+            ],
+            [
+                'id'   => 'GRUPO_B',
+                'name' => 'Grupo B',
+            ],
+            [
+                'id'   => 'GRUPO_C',
+                'name' => 'Grupo C',
+            ],
+            [
+                'id'   => 'GRUPO_D',
+                'name' => 'Grupo D',
+            ],
+            [
+                'id'   => 'GRUPO_E',
+                'name' => 'Grupo E',
+            ],
+            [
+                'id'   => 'GRUPO_F',
+                'name' => 'Grupo F',
+            ],
+            [
+                'id'   => 'GRUPO_G',
+                'name' => 'Grupo G',
+            ],
+            [
+                'id'   => 'GRUPO_H',
+                'name' => 'Grupo H',
+            ],
         ];
         foreach ($groups as $group) {
             DB::table('groups')->insert([

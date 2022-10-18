@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("id", 10);
             $table->string("name", 100);
             $table->string("icon", 255);
-            $table->unsignedBigInteger('group_id');
+            $table->string('group_id', 10);
             $table->integer("order_group");
 
             $table->primary('id');

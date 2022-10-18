@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->id();
+            $table->string("id", 10);
             $table->string("name", 100);
+
+            $table->primary('id');
         });
     }
 

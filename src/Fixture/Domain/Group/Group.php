@@ -12,7 +12,7 @@ class Group
     private $teams;
     private $games;
 
-    public function __construct(int $id, string $name, array $teams = [], array $games = [])
+    public function __construct(string $id, string $name, array $teams = [], array $games = [])
     {
         $this->id    = $id;
         $this->name  = $name;
@@ -20,7 +20,7 @@ class Group
         $this->games = $games;
     }
 
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }

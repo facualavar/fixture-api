@@ -74,7 +74,7 @@ class GroupController extends Controller
         return response()->json($response, 200);
     }
 
-    public function show(int $id, Request $request)
+    public function show(string $id, Request $request)
     {
         $authUser = $request->user();
 
@@ -117,7 +117,7 @@ class GroupController extends Controller
         return response()->json($response, 200);
     }
 
-    public function getResults(int $id, Request $request)
+    public function getResults(string $id, Request $request)
     {
         $authUser = $request->user();
 
@@ -149,7 +149,7 @@ class GroupController extends Controller
         return response()->json($response, 200);
     }
 
-    public function postResults(int $id, Request $request)
+    public function postResults(string $id, Request $request)
     {
         $results = $request->all();
         $authUser = $request->user();

@@ -16,7 +16,7 @@ final class EloquentGroupRepository implements GroupRepository
         $this->teamRepository = $teamRepository;
     }
 
-    public function find(int $id): ?Group
+    public function find(string $id): ?Group
     {
         $model = GroupEloquentModel::find($id);
 
